@@ -1,0 +1,8 @@
+data<-read.table("household_power_consumption.txt", stringsAsFactors = F,sep = ";", h=T)
+changeddate<-as.Date(strptime(data$Date,"%d/%m/%Y"))
+data<-cbind(changeddate,data[,-1])
+dat<-subset(data,changeddate >= as.Date("2007-02-01") & changeddate < as.Date("2007-02-03"))
+dat$Global_active_power<-as.numeric(as.character(dat$Global_active_power))
+png( file = "plot1.png", width=480, height=480)
+hist(dat$Global_active_power, main= "Global Active Power", xlab="Global Active Power(kilowatts)",ylab="Frequency",col="red")
+dev.off()
